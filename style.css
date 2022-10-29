@@ -1,7 +1,7 @@
 body {
     margin: 0 auto;
     font: 15px/19px Arial;
-    background-color: #f5f5f5;
+    background-color:white;
 }
 h3 {
     padding: 0; 
@@ -39,7 +39,7 @@ header h3 {
 .links {
     margin-bottom: 0px;
     padding-bottom: 0px;
-    background-color: #f5f5f5;
+    background-color:white;
     font-family: Arial, Helvetica, sans-serif;
 }
 .links h3 {
@@ -77,7 +77,7 @@ header h3 {
     padding: 5px 0;
 }
 .links ul li a {
-    color: #3a80ba;
+    color: #aa4104;
     font-weight: bold;
     text-decoration: none;
 }
