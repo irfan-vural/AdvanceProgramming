@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+
+    <title>JS Animations & Fetch</title>
+
+    <link rel="stylesheet">
+    <style type="text/css">
+        .options a,
+        .options button {
+            padding: 6px 10px;
+            background: rgba(54, 244, 231, 0.8);
+            border: none;
+            color: rgb(0, 0, 0);
+            font-size: 20px;
+            vertical-align: middle;
+        }
+        .options button:focus {
+            background-color: #36b5f4;
+        }
+
+        .char-wrap {
+
+            position: absolute;
+            bottom: 20%;
+            left: 42%;
+        }
+
+        .character-sprite {
+            position: top;
+            height: 190px;
+            width: 168px;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="options">
+        <button onclick="startAnimation()">Start</button>
+        <button onclick="stopAnimation()">Stop</button>
+        <button onclick="pauseAnimation()">Pause</button>
+        <button onclick="nextSprite()" id="next">Next</button>
+        <button onclick="prevSprite()" id="prev">Prev</button>
+
+    </div>
+
+    <div class="char-wrap">
+        <img src="hw3/1.png" class="character-sprite" id="character" />
+    </div>
+
+    <script type="text/javascript">
+        let characterSpriteNum = 1;
+        let characterSprite = document.getElementById("character");
+        let spriteUrl = "hw3/"
+        let spriteInterval;
+        let isPaused = false;
+        let isPlaying = false;
+
+        const fetchImage = async url => {
+            console.log(url);
+            const response = await fetch(url)
+            const blob = await response.blob()
+            const imageBlob = blob;
+            const imageBase64 = URL.createObjectURL(imageBlob);
+            characterSprite.src = imageBase64;
+        }
+
+        function startAnimation(lastSpriteNum = 1) {
+            if (isPlaying) {
+                return;
+            }
+            document.getElementById("next").disabled = true;
+            document.getElementById("prev").disabled = true;
+            spriteInterval = setInterval(function () {
+                fetchImage(spriteUrl + characterSpriteNum + ".png").then(() => {
+
+                    characterSpriteNum++;
+                    if (characterSpriteNum > 12) characterSpriteNum = 1
+                });
+            }, 200);
+            isPlaying = true;
+            isPaused = false;
+        }
+
+        function stopAnimation() {
+            clearInterval(spriteInterval);
+            isPlaying = false;
+        }
+
+        function pauseAnimation() {
+            if (isPaused) {
+                console.log('pause Animation 1')
+                startAnimation(characterSpriteNum);
+                isPaused = false;
+                document.getElementById("next").disabled = true;
+                document.getElementById("prev").disabled = true;
+            } else {
+                console.log('pause Animation 2')
+                stopAnimation();
+                isPaused = true;
+                document.getElementById("next").disabled = false;
+                document.getElementById("prev").disabled = false;
+            }
+        }
+
+        function nextSprite() {
+            characterSpriteNum++;
+            if (characterSpriteNum > 12) characterSpriteNum = 1
+            characterSprite.src = spriteUrl + characterSpriteNum + ".png"
+        }
+
+        function prevSprite() {
+            characterSpriteNum--;
+            if (characterSpriteNum < 1) characterSpriteNum = 12
+            characterSprite.src = spriteUrl + characterSpriteNum + ".png"
+        }
+    </script>
+</body>
+
+</html>
