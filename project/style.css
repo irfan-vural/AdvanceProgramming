@@ -12,7 +12,9 @@ a {
     text-decoration: none;
     color: #fff;
 }
-
+body {
+    background-image: linear-gradient( to bottom right, rgba(79,51,176,1.0),rgba(210,53,165));
+}
 
 
 .container {
@@ -59,11 +61,26 @@ button {
     transition: all 200ms ease;
 }
 
+button {
+    height: 60px;
+    width: 60px;
+    border: 0;
+    border-radius: 30px;
+    margin: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 200ms ease;
+}
 
+button:hover {
+    transform: scale(1.1);
+}
 
 button#equal {
     height: 130px;
 }
+
+
 
 
 .calculator {
